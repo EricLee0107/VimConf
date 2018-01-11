@@ -1,16 +1,17 @@
 set filetype=go
 
 "自动补全括号
-inoremap ( ()<ESC>i
-inoremap () ()<ESC>i
-inoremap [ []<ESC>i
-inoremap { {<ESC>o}<ESC>O
-inoremap < <><ESC>i
+"inoremap () ()
+"inoremap ( ()<ESC>i
+"inoremap [] []
+"inoremap [ []<ESC>i
+"inoremap {} {}
+"inoremap { {<ESC>o}<ESC>O
 
 """"""""""新建.go文件，自动插入文件头“”“”“”“”“”“”“”“”“”“”“”“”“
 map <F4> :call TitleDet() <cr>'s
 ""定义函数AddTitle,自动插入文件头
-func AddTitle()
+func! AddTitle()
     if &filetype == 'go'
         call append(0,"/****************************************************************************")
         call append(1," * FileName          :".expand("%:t"))
@@ -23,7 +24,7 @@ func AddTitle()
     endif
 endfunc
 "" 更新最近修改时间和文件名
-function UpdateTitle()
+function! UpdateTitle()
     normal m'
     execute '/* Last modified\s*:/s@:.*$@\=strftime(":\t%Y-%m-%d %H:%M")@'
     normal ''
@@ -34,7 +35,7 @@ function UpdateTitle()
     echohl WarningMsg | echo "Successful in updating the copy right." | echohl None
 endfunction
 
-function TitleDet()
+function! TitleDet()
     let n=1
     " 默认添加
     while n<7
